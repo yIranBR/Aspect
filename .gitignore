@@ -7,5 +7,12 @@ coverage/
 .vscode/
 .idea/
 
+# Frontend
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
 # Documentação técnica interna (oculta)
 .internal-docs/
