@@ -12,7 +12,8 @@ export const getAllExams = async (req: Request, res: Response) => {
 
 export const getExamById = async (req: Request, res: Response) => {
   try {
-    const exam = await Exam.findByPk(req.params.id);
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const exam = await Exam.findByPk(parseInt(id, 10));
     if (!exam) {
       return res.status(404).json({ error: 'Exam not found' });
     }

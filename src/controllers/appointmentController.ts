@@ -45,7 +45,8 @@ export const getAllAppointments = async (req: Request, res: Response) => {
 
 export const deleteAppointment = async (req: Request, res: Response) => {
   try {
-    const appointment = await Appointment.findByPk(req.params.id);
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const appointment = await Appointment.findByPk(parseInt(id, 10));
     if (!appointment) {
       return res.status(404).json({ error: 'Appointment not found' });
     }
