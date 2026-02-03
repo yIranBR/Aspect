@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import sequelize from './config/database';
 import examRoutes from './routes/examRoutes';
 import appointmentRoutes from './routes/appointmentRoutes';
+import authRoutes from './routes/authRoutes';
 import { seedExams } from './seed/seedExams';
 
 dotenv.config();
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/auth', authRoutes);
 app.use('/api', examRoutes);
 app.use('/api', appointmentRoutes);
 

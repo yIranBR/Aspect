@@ -5,6 +5,7 @@ import Exam from './Exam';
 interface AppointmentAttributes {
   id: number;
   examId: number;
+  userId: number;
   scheduledDate: Date;
   notes?: string;
   createdAt?: Date;
@@ -16,6 +17,7 @@ interface AppointmentCreationAttributes extends Optional<AppointmentAttributes, 
 class Appointment extends Model<AppointmentAttributes, AppointmentCreationAttributes> implements AppointmentAttributes {
   public id!: number;
   public examId!: number;
+  public userId!: number;
   public scheduledDate!: Date;
   public notes?: string;
   public readonly createdAt!: Date;
@@ -34,6 +36,14 @@ Appointment.init(
       allowNull: false,
       references: {
         model: 'exams',
+        key: 'id',
+      },
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'users',
         key: 'id',
       },
     },
