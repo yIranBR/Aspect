@@ -14,9 +14,13 @@ const Login: React.FC = () => {
     setError('');
     setLoading(true);
 
+    console.log('Login: Form submitted with email:', email);
+
     try {
       await login(email, password);
+      console.log('Login: Success');
     } catch (err: any) {
+      console.error('Login: Error occurred', err);
       setError(err.response?.data?.error || 'Erro ao fazer login');
     } finally {
       setLoading(false);

@@ -39,9 +39,13 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000, // 10 second timeout
 });
 
+console.log('API: Base URL configured as', API_BASE_URL);
+
 api.interceptors.request.use((config) => {
+  console.log('API: Request to', config.url);
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -49,12 +53,30 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => {
+    console.log('API: Response from', response.config.url, response.status);
+    return response;
+  },
+  (error) => {
+    console.error('API: Error from', error.config?.url, error.response?.status, error.message);
+    return Promise.reject(error);
+  }
+);
+
 export const authService = {
-  register: (data: { email: string; password: string; name: string; role?: 'patient' | 'admin' }) =>
-    axios.post<AuthResponse>(`${API_BASE_URL}/auth/register`, data),
-  login: (data: { email: string; password: string }) =>
-    axios.post<AuthResponse>(`${API_BASE_URL}/auth/login`, data),
-  getProfile: () => api.get<User>('/auth/profile'),
+  register: (data: { email: string; password: string; name: string; role?: 'patient' | 'admin' }) => {
+    console.log('API: Calling register');
+    return api.post<AuthResponse>('/auth/register', data);
+  },
+  login: (data: { email: string; password: string }) => {
+    console.log('API: Calling login with', data.email);
+    return api.post<AuthResponse>('/auth/login', data);
+  },
+  getProfile: () => {
+    console.log('API: Calling getProfile');
+    return api.get<User>('/auth/profile');
+  },
 };
 
 export const examService = {
