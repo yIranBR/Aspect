@@ -46,29 +46,55 @@ npm install
 npm start
 ```
 
-O frontend estará disponível em: `http://localhost:3000`
+O frontend estará disponível em: `http://localhost:3002`
+
+## Autenticação
+
+O sistema possui dois níveis de acesso:
+
+### Administrador
+- Pode visualizar todos os agendamentos (com informações dos pacientes)
+- Pode editar e excluir qualquer agendamento
+- **Usuário de teste**: admin@aspect.com / senha: 123456
+
+### Paciente
+- Pode criar seus próprios agendamentos
+- Pode visualizar e excluir apenas seus próprios agendamentos
+- Pode se registrar através da tela inicial
+- **Usuário de teste**: paciente@aspect.com / senha: 123456
 
 ## Endpoints da API
+
+### Autenticação
+- `POST /api/auth/register` - Registra novo usuário
+- `POST /api/auth/login` - Realiza login e retorna token JWT
+- `GET /api/auth/profile` - Retorna dados do usuário autenticado (requer token)
 
 ### Exames
 - `GET /api/exams` - Lista todos os exames disponíveis
 - `GET /api/exams/:id` - Busca exame por ID
 
 ### Agendamentos
-- `POST /api/appointments` - Cria novo agendamento
-- `GET /api/appointments` - Lista todos os agendamentos
-- `DELETE /api/appointments/:id` - Remove agendamento
+- `POST /api/appointments` - Cria novo agendamento (requer autenticação)
+- `GET /api/appointments` - Lista agendamentos (paciente vê apenas os seus, admin vê todos)
+- `PUT /api/appointments/:id` - Atualiza agendamento (apenas admin)
+- `DELETE /api/appointments/:id` - Remove agendamento (paciente apenas os seus, admin todos)
 
 ### Health Check
 - `GET /health` - Verifica status da API
 
 ## Funcionalidades
 
+- **Autenticação JWT** com dois níveis de acesso (Admin e Paciente)
+- **Controle de acesso baseado em roles**:
+  - Pacientes podem criar e gerenciar apenas seus próprios agendamentos
+  - Administradores têm acesso total a todos os agendamentos
 - Visualização de exames disponíveis
 - Criação de agendamentos com data/hora e observações
-- Listagem de agendamentos com detalhes do exame
-- Exclusão de agendamentos
+- Listagem de agendamentos com detalhes do exame e paciente (para admin)
+- Exclusão e edição de agendamentos com controle de permissões
 - Seed automático de exames na inicialização
+- Interface responsiva com gradientes modernos
 
 ## Desenvolvimento
 
