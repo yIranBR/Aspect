@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import sequelize from './config/database';
 import examRoutes from './routes/examRoutes';
 import appointmentRoutes from './routes/appointmentRoutes';
+import { seedExams } from './seed/seedExams';
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ const startServer = async () => {
 
     await sequelize.sync();
     console.log('Database models synchronized');
+
+    await seedExams();
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
