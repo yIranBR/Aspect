@@ -87,7 +87,7 @@ const DoctorsManagement: React.FC = () => {
         {doctors.map((doctor) => (
           <motion.div
             key={doctor.id}
-            className="doctor-card"
+            className="exam-card"
             variants={itemVariants}
             whileHover={{ scale: 1.05 }}
           >

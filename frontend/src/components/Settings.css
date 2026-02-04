@@ -7,9 +7,9 @@
 }
 
 .settings-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.1);
+  box-shadow: 0 4px 12px var(--shadow);
   margin-bottom: 1.5rem;
   overflow: hidden;
 }
@@ -41,7 +41,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .settings-info:last-child {
@@ -49,13 +49,13 @@
 }
 
 .settings-info label {
-  color: #666;
+  color: var(--text-secondary);
   font-weight: 600;
   font-size: 0.95rem;
 }
 
 .settings-info p {
-  color: #1b5e20;
+  color: var(--text-primary);
   font-weight: 600;
   margin: 0;
 }
@@ -71,10 +71,12 @@
 .settings-input {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s;
+  background: var(--card-bg);
+  color: var(--text-primary);
 }
 
 .settings-input:focus {
@@ -88,7 +90,7 @@
   gap: 1rem;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-color);
 }
 
 .btn-save-profile {

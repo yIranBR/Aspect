@@ -13,10 +13,10 @@
 }
 
 .exam-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.1);
+  box-shadow: 0 4px 12px var(--shadow);
   transition: all 0.3s;
   border: 2px solid transparent;
   position: relative;
@@ -44,7 +44,7 @@
 }
 
 .exam-card h3 {
-  color: #1b5e20;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
   font-size: 1.3rem;
 }
@@ -61,7 +61,7 @@
 }
 
 .exam-card p {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.5;
   margin: 1rem 0;
@@ -72,7 +72,7 @@
   gap: 0.75rem;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-color);
 }
 
 .btn-edit,

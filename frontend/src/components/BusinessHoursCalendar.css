@@ -8,10 +8,10 @@
 }
 
 .calendar-section {
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1.5rem;
-  border: 2px solid #c8e6c9;
+  border: 2px solid var(--border-color);
 }
 
 .calendar-header {
@@ -25,7 +25,7 @@
 
 .calendar-header h3 {
   margin: 0;
-  color: #2e7d32;
+  color: var(--text-primary);
   font-size: 1.3rem;
 }
 
@@ -123,15 +123,15 @@
 }
 
 .time-section {
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1.5rem;
-  border: 2px solid #c8e6c9;
+  border: 2px solid var(--border-color);
 }
 
 .time-section h4 {
   margin: 0 0 1.5rem 0;
-  color: #2e7d32;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -151,9 +151,9 @@
 }
 
 .time-slot {
-  background: #f1f8e9;
-  border: 2px solid #c8e6c9;
-  color: #2e7d32;
+  background: var(--bg-gradient-start);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
   padding: 0.75rem;
   border-radius: 8px;
   cursor: pointer;

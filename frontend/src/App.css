@@ -136,7 +136,7 @@ body {
   gap: 1.5rem;
 }
 
-.doctor-card {
+.exam-card {
   background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
   color: white;
   padding: 1.5rem;
@@ -146,16 +146,16 @@ body {
   transition: transform 0.2s;
 }
 
-.doctor-card:hover {
+.exam-card:hover {
   transform: translateY(-5px);
 }
 
-.doctor-card h3 {
+.exam-card h3 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
 
-.doctor-card .specialty {
+.exam-card .specialty {
   font-size: 0.95rem;
   opacity: 0.9;
 }
