@@ -137,8 +137,8 @@ body {
 }
 
 .exam-card {
-  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
-  color: white;
+  background: var(--card-bg);
+  color: var(--text-primary);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 12px var(--shadow);

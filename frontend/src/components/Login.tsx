@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onSwitchToRegister?: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onSwitchToRegister }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,18 +64,20 @@ const Login: React.FC = () => {
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
-        <div className="auth-link">
-          <p>
-            Novo usuário?{' '}
-            <button
-              type="button"
-              className="link-button"
-              onClick={() => navigate('/register')}
-            >
-              Registre-se aqui
-            </button>
-          </p>
-        </div>
+        {onSwitchToRegister && (
+          <div className="auth-link">
+            <p>
+              Novo usuário?{' '}
+              <button
+                type="button"
+                className="link-button"
+                onClick={onSwitchToRegister}
+              >
+                Registre-se aqui
+              </button>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

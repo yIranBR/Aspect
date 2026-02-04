@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
-const Register: React.FC = () => {
+interface RegisterProps {
+  onSwitchToLogin?: () => void;
+}
+
+const Register: React.FC<RegisterProps> = ({ onSwitchToLogin }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,7 +14,6 @@ const Register: React.FC = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,18 +93,20 @@ const Register: React.FC = () => {
             {loading ? 'Cadastrando...' : 'Cadastrar'}
           </button>
         </form>
-        <div className="auth-link">
-          <p>
-            Já tem conta?{' '}
-            <button
-              type="button"
-              className="link-button"
-              onClick={() => navigate('/login')}
-            >
-              Faça login aqui
-            </button>
-          </p>
-        </div>
+        {onSwitchToLogin && (
+          <div className="auth-link">
+            <p>
+              Já tem conta?{' '}
+              <button
+                type="button"
+                className="link-button"
+                onClick={onSwitchToLogin}
+              >
+                Faça login aqui
+              </button>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

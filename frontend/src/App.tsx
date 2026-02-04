@@ -27,12 +27,11 @@ const AppContent: React.FC = () => {
   if (!isAuthenticated) {
     return (
       <div>
-        {showRegister ? <Register /> : <Login />}
-        <div className="auth-switch">
-          <button onClick={() => setShowRegister(!showRegister)}>
-            {showRegister ? 'Já tem conta? Faça login' : 'Não tem conta? Cadastre-se'}
-          </button>
-        </div>
+        {showRegister ? (
+          <Register onSwitchToLogin={() => setShowRegister(false)} />
+        ) : (
+          <Login onSwitchToRegister={() => setShowRegister(true)} />
+        )}
       </div>
     );
   }
