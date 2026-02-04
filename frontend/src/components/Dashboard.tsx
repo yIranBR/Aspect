@@ -10,6 +10,7 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [showModal, setShowModal] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     examId: 0,
     scheduledDate: '',
@@ -111,6 +112,37 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="App">
+      {/* Mobile Header */}
+      <div className="mobile-header">
+        <h1>
+          <i className="fas fa-hospital"></i>
+          Aspect Hospital
+        </h1>
+        <button className="hamburger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <>
+          <div className="sidebar-overlay" onClick={() => setMobileMenuOpen(false)}></div>
+          <div className="mobile-menu-panel">
+            <div className="mobile-menu-header">
+              <span>Olá, {user?.name}</span>
+            </div>
+            <button className="mobile-menu-item" onClick={() => { handleOpenModal(); setMobileMenuOpen(false); }}>
+              <i className="fas fa-plus"></i>
+              Novo Agendamento
+            </button>
+            <button className="mobile-menu-item logout" onClick={logout}>
+              <i className="fas fa-sign-out-alt"></i>
+              Sair
+            </button>
+          </div>
+        </>
+      )}
+
       <header className="App-header">
         <h1>
           <i className="fas fa-hospital"></i>

@@ -507,10 +507,13 @@
   color: white;
   padding: 1rem;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100vw;
   z-index: 1001;
 }
 
@@ -562,7 +565,7 @@
   .admin-main-content {
     margin-left: 0;
     width: 100%;
-    padding-top: 1rem;
+    padding-top: calc(3.5rem + 1rem); /* mobile-header height + spacing */
   }
 
   .admin-section {
