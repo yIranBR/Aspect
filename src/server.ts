@@ -11,7 +11,10 @@ import { seedExams } from './seed/seedExams';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 80;
+
+// Trust proxy for Cloudflare/reverse proxy
+app.set('trust proxy', true);
 
 // Configure CORS to allow requests from any origin
 app.use(cors({
@@ -41,7 +44,7 @@ const startServer = async () => {
     await seedExams();
 
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`🔥 API HTTP running on port ${PORT}`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);

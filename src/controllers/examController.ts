@@ -1,9 +1,21 @@
 import { Request, Response } from 'express';
 import Exam from '../models/Exam';
+import { cacheService, CACHE_KEYS } from '../services/cacheService';
 
 export const getAllExams = async (req: Request, res: Response) => {
   try {
+    // Tentar buscar do cache primeiro
+    const cachedExams = cacheService.get<Exam[]>(CACHE_KEYS.EXAMS);
+    if (cachedExams) {
+      return res.json(cachedExams);
+    }
+
+    // Se não tiver em cache, buscar do banco
     const exams = await Exam.findAll();
+    
+    // Salvar no cache por 5 minutos
+    cacheService.set(CACHE_KEYS.EXAMS, exams);
+    
     res.json(exams);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch exams' });
@@ -32,6 +44,10 @@ export const createExam = async (req: Request, res: Response) => {
     }
 
     const exam = await Exam.create({ name, specialty, description });
+    
+    // Invalidar cache de exames
+    cacheService.invalidateExams();
+    
     res.status(201).json(exam);
   } catch (error) {
     res.status(500).json({ error: 'Failed to create exam' });
@@ -49,6 +65,10 @@ export const updateExam = async (req: Request, res: Response) => {
     }
 
     await exam.update({ name, specialty, description });
+    
+    // Invalidar cache de exames
+    cacheService.invalidateExams();
+    
     res.json(exam);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update exam' });
@@ -65,6 +85,10 @@ export const deleteExam = async (req: Request, res: Response) => {
     }
 
     await exam.destroy();
+    
+    // Invalidar cache de exames
+    cacheService.invalidateExams();
+    
     res.json({ message: 'Exam deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete exam' });

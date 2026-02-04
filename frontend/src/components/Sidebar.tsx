@@ -19,11 +19,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, onLog
   ];
 
   return (
-    <motion.aside
+    <aside
       className={`sidebar ${isMobileOpen ? 'mobile-open' : ''}`}
-      initial={{ x: -250 }}
-      animate={{ x: 0 }}
-      transition={{ type: 'spring', stiffness: 100 }}
     >
       <div className="sidebar-header">
         <div className="sidebar-logo">
@@ -49,6 +46,17 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, onLog
             <span>{item.label}</span>
           </motion.button>
         ))}
+        
+        {/* Botão Sair mobile - visível apenas em 992px */}
+        <motion.button
+          className="sidebar-item sidebar-item-logout-mobile"
+          onClick={onLogout}
+          whileHover={{ scale: 1.05, x: 10 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <i className="fas fa-sign-out-alt"></i>
+          <span>Sair</span>
+        </motion.button>
       </nav>
 
       <div className="sidebar-footer">
@@ -62,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, onLog
           <span>Sair</span>
         </motion.button>
       </div>
-    </motion.aside>
+    </aside>
   );
 };
 

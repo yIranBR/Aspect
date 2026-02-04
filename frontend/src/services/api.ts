@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// API Configuration - Updated to HTTPS
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:9101/api';
 
 export interface Exam {

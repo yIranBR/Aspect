@@ -96,6 +96,11 @@
   color: #81c784;
 }
 
+/* Botão Sair mobile - escondido por padrão */
+.sidebar-item-logout-mobile {
+  display: none;
+}
+
 .sidebar-footer {
   padding: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -149,12 +154,33 @@
 /* Responsivo */
 @media (max-width: 992px) {
   .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%) !important;
+    z-index: 1000;
+    padding-top: 100px !important;
   }
   
   .sidebar.mobile-open {
-    transform: translateX(0);
+    transform: translateX(0) !important;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sidebar-item-logout-mobile {
+    display: flex !important;
+    margin-top: 64px;
+    color: #ffcdd2 !important;
+    border-left-color: #f44336 !important;
+  }
+
+  .sidebar-item-logout-mobile:hover {
+    background: rgba(244, 67, 54, 0.2) !important;
+    color: #ff8a80 !important;
+  }
+
+  .sidebar-footer {
+    display: none;
   }
 }
 
