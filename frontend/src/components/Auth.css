@@ -1,0 +1,194 @@
+/* Auth - Tema Verde Hospitalar */
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  padding: 2rem;
+}
+
+.auth-card {
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(27, 94, 32, 0.3);
+  width: 100%;
+  max-width: 450px;
+}
+
+.auth-avatar {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.auth-avatar i {
+  font-size: 5rem;
+  color: #4caf50;
+  background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.auth-card h2 {
+  color: #1b5e20;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form .form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2e7d32;
+}
+
+.auth-form .form-group input {
+  padding: 0.75rem;
+  border: 2px solid #c8e6c9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.auth-form .form-group input:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.auth-form button {
+  background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s, transform 0.2s;
+  margin-top: 1rem;
+}
+
+.auth-form button:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.3);
+}
+
+.auth-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-card .error-message {
+  background: linear-gradient(135deg, #ef5350 0%, #c62828 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.auth-switch button {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.auth-switch button:hover {
+  background: white;
+  color: #2e7d32;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1rem;
+  }
+
+  .auth-card {
+    padding: 2rem;
+  }
+
+  .auth-card h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Estilos para campos desabilitados */
+.input-disabled {
+  background-color: #f5f5f5 !important;
+  color: #666 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.field-help {
+  display: block;
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.field-help i {
+  margin-right: 0.25rem;
+  color: #4caf50;
+}
+
+/* Estilos para links de navegação entre login/registro */
+.auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.auth-link p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.auth-link .link-button {
+  background: none;
+  border: none;
+  color: #4caf50;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s;
+  padding: 0;
+  margin: 0;
+}
+
+.auth-link .link-button:hover {
+  color: #2e7d32;
+  transform: none;
+  box-shadow: none;
+}

@@ -1,0 +1,124 @@
+/* Exams Management - Tema Verde Hospitalar */
+
+.exams-management {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.exams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.exam-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.1);
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  position: relative;
+}
+
+.exam-card:hover {
+  border-color: #4caf50;
+  box-shadow: 0 8px 24px rgba(27, 94, 32, 0.2);
+}
+
+.exam-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.exam-icon i {
+  font-size: 2rem;
+  color: white;
+}
+
+.exam-card h3 {
+  color: #1b5e20;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.exam-specialty {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.exam-card p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+.exam-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-edit,
+.btn-delete {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.btn-edit {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.btn-edit:hover {
+  background: #4caf50;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-delete {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.btn-delete:hover {
+  background: #f44336;
+  color: white;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .exams-management {
+    padding: 1rem;
+  }
+
+  .exams-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: aspect-postgres
+    environment:
+      POSTGRES_DB: aspect_db
+      POSTGRES_USER: aspect_user
+      POSTGRES_PASSWORD: aspect_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - aspect-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aspect_user -d aspect_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aspect-api
+    environment:
+      NODE_ENV: development
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: aspect_db
+      DB_USER: aspect_user
+      DB_PASSWORD: aspect_password
+      PORT: 3000
+    ports:
+      - "9101:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/frontend
+    networks:
+      - aspect-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: aspect-frontend
+    environment:
+      NODE_ENV: development
+      REACT_APP_API_URL: http://10.0.0.229:9101/api
+      WDS_SOCKET_PORT: 9102
+    ports:
+      - "9102:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - aspect-network
+    depends_on:
+      - api
+    command: npm start
+
+volumes:
+  postgres_data:
+
+networks:
+  aspect-network:
+    driver: bridge
