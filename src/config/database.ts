@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
     port: parseInt(process.env.DB_PORT || '5432'),
     dialect: 'postgres',
     logging: false,
-    timezone: '+03:00', // São Paulo timezone (UTC+3 para compensar)
+    timezone: '-03:00', // São Paulo/Brasília timezone (UTC-3)
     dialectOptions: {
       useUTC: false, // Don't convert dates to UTC
     },

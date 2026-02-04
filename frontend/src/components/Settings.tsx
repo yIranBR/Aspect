@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
+import { authService } from '../services/api';
 import './Settings.css';
 
 const Settings: React.FC = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [theme, setTheme] = useState<'light' | 'dark'>(
     (localStorage.getItem('theme') as 'light' | 'dark') || 'light'
   );
@@ -17,17 +18,44 @@ const Settings: React.FC = () => {
   const [notifications, setNotifications] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [profileData, setProfileData] = useState({
     name: user?.name || '',
     email: user?.email || '',
   });
 
-  const handleSaveProfile = () => {
-    // TODO: Implementar chamada à API para atualizar perfil
-    setSuccess('Perfil atualizado com sucesso!');
-    setIsEditingProfile(false);
-    setTimeout(() => setSuccess(''), 3000);
+  const handleSaveProfile = async () => {
+    if (!profileData.name || !profileData.email) {
+      setError('Nome e email são obrigatórios');
+      setTimeout(() => setError(''), 3000);
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    
+    try {
+      const response = await authService.updateProfile({
+        name: profileData.name,
+        email: profileData.email,
+      });
+      
+      // Atualizar contexto do usuário
+      if (setUser) {
+        setUser(response.data);
+      }
+      
+      setSuccess('Perfil atualizado com sucesso!');
+      setIsEditingProfile(false);
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Erro ao atualizar perfil');
+      setTimeout(() => setError(''), 3000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleThemeChange = (newTheme: 'light' | 'dark') => {
@@ -67,6 +95,7 @@ const Settings: React.FC = () => {
       </div>
 
       {success && <div className="success-message">{success}</div>}
+      {error && <div className="error-message">{error}</div>}
 
       <motion.div className="settings-card" variants={cardVariants}>
         <div className="settings-card-header">
@@ -101,13 +130,13 @@ const Settings: React.FC = () => {
                 </p>
               </div>
               <div className="profile-actions">
-                <button className="btn-secondary" onClick={() => setIsEditingProfile(false)}>
+                <button className="btn-secondary" onClick={() => setIsEditingProfile(false)} disabled={loading}>
                   <i className="fas fa-times"></i>
                   Cancelar
                 </button>
-                <button className="btn-secondary btn-save-profile" onClick={handleSaveProfile}>
+                <button className="btn-secondary btn-save-profile" onClick={handleSaveProfile} disabled={loading}>
                   <i className="fas fa-save"></i>
-                  Salvar Alterações
+                  {loading ? 'Salvando...' : 'Salvar Alterações'}
                 </button>
               </div>
             </>

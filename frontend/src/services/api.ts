@@ -79,6 +79,10 @@ export const authService = {
     console.log('API: Calling getProfile');
     return api.get<User>('auth/profile');
   },
+  updateProfile: (data: { name?: string; email?: string }) => {
+    console.log('API: Calling updateProfile');
+    return api.put<User>('auth/profile', data);
+  },
   getAllUsers: () => {
     console.log('API: Calling getAllUsers');
     return api.get<User[]>('auth/users');

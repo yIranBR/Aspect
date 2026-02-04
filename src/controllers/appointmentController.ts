@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Appointment, { AppointmentStatus } from '../models/Appointment';
 import Exam from '../models/Exam';
 import User from '../models/User';
+import { sendAppointmentConfirmationEmail } from '../services/emailService';
 
 export const createAppointment = async (req: Request, res: Response) => {
   try {
@@ -38,6 +39,9 @@ export const createAppointment = async (req: Request, res: Response) => {
       appointmentDate = new Date(dateString);
     }
 
+    // Adicionar 3 horas para corrigir timezone
+    appointmentDate.setHours(appointmentDate.getHours() + 3);
+
     const appointment = await Appointment.create({
       userId: targetUserId,
       examId,
@@ -52,6 +56,25 @@ export const createAppointment = async (req: Request, res: Response) => {
         { model: User, as: 'user', attributes: ['id', 'name', 'email'] },
       ],
     });
+
+    // Enviar email de confirmação
+    if (appointmentWithDetails) {
+      const appointmentData = appointmentWithDetails.toJSON() as any;
+      if (appointmentData.user && appointmentData.exam) {
+        try {
+          await sendAppointmentConfirmationEmail({
+            patientName: appointmentData.user.name,
+            patientEmail: appointmentData.user.email,
+            examName: appointmentData.exam.name,
+            examSpecialty: appointmentData.exam.specialty,
+            appointmentDate: appointmentWithDetails.date,
+            notes: appointmentWithDetails.notes || undefined,
+          });
+        } catch (emailError) {
+          console.error('Erro ao enviar email, mas agendamento foi criado:', emailError);
+        }
+      }
+    }
 
     res.status(201).json(appointmentWithDetails);
   } catch (error) {
